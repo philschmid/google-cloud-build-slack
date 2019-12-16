@@ -3,15 +3,18 @@ service: gcb-slack
 provider:
   name: google
   runtime: nodejs8
-  project: ${env:PROJECT_ID}
-  credentials: ~/.gcloud/keyfile.json # path must be absolute
-
+  project: talos-insight
+  credentials: ~/.gcp/talos-credentials.json # path must be absolute
+  environment:
+    SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+    PROJECT_ID: ${self:provider.project}
+    GC_SLACK_STATUS: "SUCCESS FAILURE TIMEOUT INTERNAL_ERROR"
 plugins:
   - serverless-google-cloudfunctions
 
 package:
   exclude:
-    - '**'
+    - "**"
   include:
     - index.js
     - config.json
@@ -24,5 +27,3 @@ functions:
       - event:
           eventType: providers/cloud.pubsub/eventTypes/topic.publish
           resource: projects/${self:provider.project}/topics/cloud-builds
-    environment:
-      GITHUB_TOKEN: ${env:GITHUB_TOKEN}

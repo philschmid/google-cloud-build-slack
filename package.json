@@ -4,14 +4,7 @@
   "description": "Slack integration for Google Cloud Build, using Google Cloud Functions",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/nyc node_modules/.bin/mocha --reporter spec",
-    "ci": "node_modules/.bin/nyc node_modules/.bin/mocha --reporter spec && node_modules/.bin/nyc report --reporter=text-lcov > coverage.lcov",
-    "setup": "./setup.sh",
-    "teardown": "./teardown.sh"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Philmod/google-cloud-build-slack.git"
+    "deploy": "serverless deploy"
   },
   "dependencies": {
     "@octokit/rest": "^16.27.3",
