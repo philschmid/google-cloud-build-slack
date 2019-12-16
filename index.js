@@ -124,6 +124,9 @@ module.exports.createSlackMessage = async (build, githubCommit) => {
   };
 
   let repoName, branchName;
+  console.log(build.source);
+  console.log(build.images);
+  console.log(build.substitutions);
   if (build.source && build.source.repoSource) {
     ({ repoName, branchName } = build.source.repoSource);
   } else if (build.substitutions) {
@@ -131,28 +134,28 @@ module.exports.createSlackMessage = async (build, githubCommit) => {
     branchName = build.substitutions.BRANCH_NAME;
   }
 
-  // Add source information to the message.
-  if (repoName && branchName) {
-    message.attachments[0].fields.push({
-      title: "Repository",
-      value: repoName
-    });
+  // // Add source information to the message.
+  // if (repoName && branchName) {
+  //   message.attachments[0].fields.push({
+  //     title: "Repository",
+  //     value: repoName
+  //   });
 
-    message.attachments[0].fields.push({
-      title: "Branch",
-      value: branchName
-    });
+  //   message.attachments[0].fields.push({
+  //     title: "Branch",
+  //     value: branchName
+  //   });
 
-    if (githubCommit) {
-      message.attachments[0].fields.push({
-        title: "Commit Author",
-        value: githubCommit.data.author.name
-      });
-    }
-  }
+  //   if (githubCommit) {
+  //     message.attachments[0].fields.push({
+  //       title: "Commit Author",
+  //       value: githubCommit.data.author.name
+  //     });
+  //   }
+  // }
 
   // Add image(s) to the message.
-  const images = build.images || [];
+  // const images = build.images || [];
   if (images.length) {
     message.attachments[0].fields.push({
       title: `Image${images.length > 1 ? "s" : ""}`,
